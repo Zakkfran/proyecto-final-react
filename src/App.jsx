@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Home from './componentes/home/Home';
 import RecipeHistory from './componentes/historial/RecipeHistory';
-import CreateRecipe from './componentes/crear/createrecipe';
+import CreateRecipe from './componentes/crear/CreateRecipe';
 function App() {
  
   const [currentScreen, setCurrentScreen] = useState('home');

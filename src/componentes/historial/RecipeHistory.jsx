@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import RecipeCard from './RecipeCard';
 function RecipeHistory() {
  
     const [recipes, setRecipes] = useState([]);
@@ -8,21 +8,23 @@ function RecipeHistory() {
         const savedRecipes = JSON.parse(localStorage.getItem('recipes')) || [];
         setRecipes(savedRecipes);
     }, []);
-
+    const deleteRecipe = (index) => {
+        const newRecipes = [...recipes];
+        newRecipes.splice(index, 1);
+        setRecipes(newRecipes);
+        localStorage.setItem('recipes', JSON.stringify(newRecipes));
+    };
+   
     return (
         <div>
             <h2>Historial de Recetas</h2>
             <ul>
                 {recipes.map((recipe, index) => (
                     <li key={index}>
-                        <h3>{recipe.name}</h3>
-                        <ul>
-                            {recipe.ingredients.map((ingredient, idx) => (
-                                <li key={idx}>
-                                    {ingredient.name} - {ingredient.quantity} unidades - {ingredient.calories * ingredient.quantity} calorías
-                                </li>
-                            ))}
-                        </ul>
+                <RecipeCard
+                            recipe={recipe}
+                            onDelete={() => deleteRecipe(index)}
+                        />
                     </li>
                 ))}
             </ul>
